@@ -18,6 +18,14 @@ interface BookServiceInterface
     public function findAll(): ?array;
 
     /**
+     *  Retrieves a Book resource by ID
+     * @param int $bookId
+     * @return Book
+     * @throws EntityNotFoundException
+     */
+    public function find(int $bookId): Book;
+
+    /**
      * Creates a Book resource
      * @param array $attrs
      * @return Book

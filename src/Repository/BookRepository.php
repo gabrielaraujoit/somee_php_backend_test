@@ -35,6 +35,16 @@ final class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Retrieves a Book resource by ID
+     * @param int $bookId
+     * @return Book
+     */
+    public function find(int $bookId): ?Book
+    {
+        return $this->entityManager->find(Book::class, $bookId);
+    }
+
+    /**
      * Stores a book resource
     * @param Book $book
     */

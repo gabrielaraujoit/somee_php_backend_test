@@ -42,6 +42,22 @@ final class BookService implements BookServiceInterface
         return $this->bookRepository->findAll();
     }
 
+    /**
+     * @param int $bookId
+     * @return Book
+     * @throws EntityNotFoundException
+     */
+    public function find(int $bookId): Book
+    {
+        $book = $this->bookRepository->find($bookId);
+
+        if (!$book) {
+            throw new EntityNotFoundException('Book with id '.$bookId.' does not exist!');
+        }
+
+        return $book;
+    }
+
      /**
       * Creates a book resource
      * @param array $attrs
