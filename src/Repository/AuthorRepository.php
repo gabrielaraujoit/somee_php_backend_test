@@ -34,6 +34,16 @@ final class AuthorRepository implements AuthorRepositoryInterface
         return $this->entityManager->getRepository(Author::class)->findAll();
     }
 
+    /**
+     * Retrieves an Author resource by ID
+     * @param int $authorId
+     * @return Author
+     */
+    public function find(int $authorId): ?Author
+    {
+        return $this->entityManager->find(Author::class, $authorId);
+    }
+
      /**
       * Stores an author resource
      * @param Author $author

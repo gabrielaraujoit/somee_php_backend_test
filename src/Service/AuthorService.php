@@ -34,6 +34,22 @@ final class AuthorService implements AuthorServiceInterface
         return $this->authorRepository->findAll();
     }
 
+    /**
+     * @param int $authorId
+     * @return Author
+     * @throws EntityNotFoundException
+     */
+    public function find(int $authorId): Author
+    {
+        $author = $this->authorRepository->find($authorId);
+
+        if (!$author) {
+            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
+        }
+
+        return $author;
+    }
+
      /**
       * Creates an author resource
      * @param array $attrs
