@@ -26,31 +26,6 @@ final class AuthorService implements AuthorServiceInterface
         $this->authorRepository = $authorRepository;
     }
 
-    /**
-     * Retrieves a collection of Author resource
-     * @return array|null
-     */
-    public function findAll(): ?array
-    {
-        return $this->authorRepository->findAll();
-    }
-
-    /**
-     * @param int $authorId
-     * @return Author
-     * @throws EntityNotFoundException
-     */
-    public function find(int $authorId): Author
-    {
-        $author = $this->authorRepository->find($authorId);
-
-        if (!$author) {
-            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
-        }
-
-        return $author;
-    }
-
      /**
       * Creates an author resource
      * @param array $attrs
@@ -58,6 +33,10 @@ final class AuthorService implements AuthorServiceInterface
      */
     public function store(array $attrs): Author
     {
+        if(!$attrs['dob'] instanceof \DateTimeInterface) {
+            throw new \InvalidArgumentException('A valid date of birth is required.');
+        }
+
         $author = new Author();
         $author->setName($attrs['name']);
         $author->setDob(\DateTime::createFromFormat('Y-m-d', $attrs['dob']));
@@ -67,47 +46,4 @@ final class AuthorService implements AuthorServiceInterface
         return $author;
     }
 
-
-    /**
-     * Updates an Author resource
-     * @param array $attrs
-     * @return Author
-     * @throws EntityNotFoundException
-     */
-    public function update(array $attrs): Author
-    {
-        $authorId = $attrs['id'];
-
-        if (empty($authorId)) {
-            throw new \InvalidArgumentException('Id is required.');
-        }
-
-        $author = $this->authorRepository->find($authorId);
-        
-        if (!$author) {
-            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
-        }
-        
-        $author->setName($attrs['name']);
-        $author->setDob(\DateTime::createFromFormat('Y-m-d', $attrs['dob']));
-        $this->authorRepository->store($author);
-        
-        return $author;
-    }
-
-    /**
-     * Removes an Author resource
-     * @param int $authorId
-     * @throws EntityNotFoundException
-     */
-    public function delete(int $authorId): void
-    {
-        $author = $this->authorRepository->find($authorId);
-
-        if (!$author) {
-            throw new EntityNotFoundException('Article with id '.$authorId.' does not exist!');
-        }
-        
-        $this->authorRepository->delete($author);
-    }
 }
