@@ -2,6 +2,7 @@
 namespace App\Contracts;
 
 use App\Entity\Author;
+use Doctrine\ORM\EntityNotFoundException;
 
 /**
  * Interface AuthorServiceInterface
@@ -30,4 +31,12 @@ interface AuthorServiceInterface
      * @return Author
      */
     public function store(array $attrs): Author;
+
+     /**
+     * Updates an Author resource
+     * @param array $attrs
+     * @return Author
+     * @throws EntityNotFoundException
+     */
+    public function update(array $attrs): Author;
 }

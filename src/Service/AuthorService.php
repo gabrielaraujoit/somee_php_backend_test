@@ -4,6 +4,7 @@ namespace App\Service;
 use App\Contracts\AuthorRepositoryInterface;
 use App\Contracts\AuthorServiceInterface;
 use App\Entity\Author;
+use Doctrine\ORM\EntityNotFoundException;
 
 /**
  * Class AuthorService
@@ -63,6 +64,34 @@ final class AuthorService implements AuthorServiceInterface
 
         $this->authorRepository->store($author);
 
+        return $author;
+    }
+
+
+    /**
+     * Updates an Author resource
+     * @param array $attrs
+     * @return Author
+     * @throws EntityNotFoundException
+     */
+    public function update(array $attrs): Author
+    {
+        $authorId = $attrs['id'];
+
+        if (empty($authorId)) {
+            throw new \InvalidArgumentException('Id is required.');
+        }
+
+        $author = $this->authorRepository->find($authorId);
+        
+        if (!$author) {
+            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
+        }
+        
+        $author->setName($attrs['name']);
+        $author->setDob(\DateTime::createFromFormat('Y-m-d', $attrs['dob']));
+        $this->authorRepository->store($author);
+        
         return $author;
     }
 }

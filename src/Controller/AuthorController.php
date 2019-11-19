@@ -65,4 +65,17 @@ class AuthorController extends AbstractFOSRestController
         
         return View::create($author, Response::HTTP_CREATED);
     }
+
+    /**
+     * Updates an Author resource
+     * @Rest\Patch("/authors")
+     * @param Request $request
+     * @return View
+     */
+    public function patchAuthor(Request $request): View
+    {
+        $author = $this->authorService->update($request->request->all());
+        
+        return View::create($author, Response::HTTP_OK);
+    }
 }
