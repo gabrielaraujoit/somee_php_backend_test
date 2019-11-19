@@ -33,6 +33,15 @@ final class BookService implements BookServiceInterface
         $this->authorRepository = $authorRepository;
     }
 
+    /**
+     * Retrieves a collection of Book resource
+     * @return array|null
+     */
+    public function findAll(): ?array
+    {
+        return $this->bookRepository->findAll();
+    }
+
      /**
       * Creates a book resource
      * @param array $attrs

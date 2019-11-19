@@ -26,6 +26,15 @@ final class BookRepository implements BookRepositoryInterface
     }
 
     /**
+     * Retrieves a collection of Book resource
+     * @return array
+     */
+    public function findAll(): array
+    {
+        return $this->entityManager->getRepository(Book::class)->findAll();
+    }
+
+    /**
      * Stores a book resource
     * @param Book $book
     */

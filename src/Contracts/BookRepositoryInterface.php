@@ -16,21 +16,9 @@ interface BookRepositoryInterface
     public function findAll(): array;
 
     /**
-     * Retrieves a Book resource by ID
-     * @param int $bookId
-     * @return Book
-     */
-    public function find(int $bookId): ?Book;
-
-    /**
      * Stores a book resource
      * @param Book $book
      */
     public function store(Book $book): void;
 
-    /**
-    * Removes a Book resource
-    * @param Book $book
-    */
-    public function delete(Book $book): void;
 }

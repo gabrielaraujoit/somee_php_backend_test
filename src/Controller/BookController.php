@@ -27,6 +27,18 @@ class BookController extends AbstractFOSRestController
     }
 
     /**
+     * Retrieves a collection of Book resource
+     * @Rest\Get("/books")
+     * @return View
+     */
+    public function getBooks(): View
+    {
+        $books = $this->bookService->findAll();
+        
+        return View::create($books, Response::HTTP_OK);
+    }
+
+    /**
      * Creates an book resource
      * @Rest\Post("/books")
      * @param Request $request
