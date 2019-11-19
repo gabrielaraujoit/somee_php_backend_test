@@ -53,4 +53,14 @@ final class BookRepository implements BookRepositoryInterface
         $this->entityManager->persist($book);
         $this->entityManager->flush();
     }
+
+    /**
+    * Removes a Book resource
+    * @param Book $book
+    */
+    public function delete(Book $book): void
+    {
+        $this->entityManager->remove($book);
+        $this->entityManager->flush();
+    }
 }

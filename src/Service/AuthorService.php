@@ -60,7 +60,7 @@ final class AuthorService implements AuthorServiceInterface
     {
         $author = new Author();
         $author->setName($attrs['name']);
-        $author->setDob(\DateTime::createFromFormat('Y-m-d', $attrs['dob']));
+        $author->setDob($author->formatDate($attrs['dob']));
 
         $this->authorRepository->store($author);
 
@@ -89,7 +89,7 @@ final class AuthorService implements AuthorServiceInterface
         }
         
         $author->setName($attrs['name']);
-        $author->setDob(\DateTime::createFromFormat('Y-m-d', $attrs['dob']));
+        $author->setDob($author->formatDate($attrs['dob']));
         $this->authorRepository->store($author);
         
         return $author;
@@ -105,9 +105,9 @@ final class AuthorService implements AuthorServiceInterface
         $author = $this->authorRepository->find($authorId);
 
         if (!$author) {
-            throw new EntityNotFoundException('Article with id '.$authorId.' does not exist!');
+            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
         }
         
         $this->authorRepository->delete($author);
-    }
+    } 
 }

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Contracts\BookServiceInterface;
 use App\Service\BookService;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations as FOS;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +28,7 @@ class BookController extends AbstractFOSRestController
 
     /**
      * Retrieves a collection of Book resource
-     * @Rest\Get("/books")
+     * @FOS\Get("/books")
      * @return View
      */
     public function getBooks(): View
@@ -40,7 +40,7 @@ class BookController extends AbstractFOSRestController
 
     /**
      * Retrieves a Book resource
-     * @Rest\Get("/books/{bookId}")
+     * @FOS\Get("/books/{bookId}")
      * @param int $bookId
      * @return View
      */
@@ -53,7 +53,7 @@ class BookController extends AbstractFOSRestController
 
     /**
      * Creates an book resource
-     * @Rest\Post("/books")
+     * @FOS\Post("/books")
      * @param Request $request
      * @return View
      */
@@ -66,7 +66,7 @@ class BookController extends AbstractFOSRestController
 
     /**
      * Updates a Book resource
-     * @Rest\Patch("/books")
+     * @FOS\Patch("/books")
      * @param Request $request
      * @return View
      */
@@ -75,5 +75,18 @@ class BookController extends AbstractFOSRestController
         $book = $this->bookService->update($request->request->all());
         
         return View::create($book, Response::HTTP_OK);
+    }
+
+    /**
+     * Removes a Book resource
+     * @FOS\Delete("/books/{bookId}")
+     * @param int $bookId
+     * @return View
+     */
+    public function deleteBook(int $bookId): View
+    {
+        $this->bookService->delete($bookId);
+
+        return View::create([], Response::HTTP_NO_CONTENT);
     }
 }

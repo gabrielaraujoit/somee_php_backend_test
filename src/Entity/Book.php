@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Traits\FormatDate;
 
 /**
  * @ApiResource()
@@ -12,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Book
 {
+    use FormatDate;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -29,7 +32,7 @@ class Book
     /**
      * @ORM\Column(type="date")
      */
-    private $lauchDate;
+    private $launchDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
@@ -59,18 +62,18 @@ class Book
         return $this;
     }
 
-    public function getLauchDate(): ?\DateTimeInterface
+    public function getLaunchDate(): ?\DateTimeInterface
     {
-        return $this->lauchDate;
+        return $this->launchDate;
     }
 
-    public function setLauchDate(\DateTimeInterface $lauchDate): self
+    public function setLaunchDate(\DateTimeInterface $launchDate): self
     {
-        if(empty($lauchDate) || !$lauchDate instanceof \DateTimeInterface) {
-            throw new \InvalidArgumentException('A valid lauch date is required.');
+        if(empty($launchDate) || !$launchDate instanceof \DateTimeInterface) {
+            throw new \InvalidArgumentException('A valid launch date is required.');
         }
 
-        $this->lauchDate = $lauchDate;
+        $this->launchDate = $launchDate;
 
         return $this;
     }

@@ -28,4 +28,9 @@ interface BookRepositoryInterface
      */
     public function store(Book $book): void;
 
+    /**
+    * Removes a Book resource
+    * @param Book $book
+    */
+    public function delete(Book $book): void;
 }

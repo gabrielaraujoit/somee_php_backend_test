@@ -28,7 +28,7 @@ class AuthorController extends AbstractFOSRestController
 
     /**
      * Retrieves a collection of Author resource
-     * @Rest\Get("/authors")
+     * @FOS\Get("/authors")
      * @return View
      */
     public function getAuthors(): View
@@ -40,7 +40,7 @@ class AuthorController extends AbstractFOSRestController
 
     /**
      * Retrieves an Author resource
-     * @Rest\Get("/authors/{authorId}")
+     * @FOS\Get("/authors/{authorId}")
      * @param int $authorId
      * @return View
      */
@@ -53,7 +53,7 @@ class AuthorController extends AbstractFOSRestController
 
     /**
      * Creates an author resource
-     * @Rest\Post("/authors")
+     * @FOS\Post("/authors")
      * @param Request $request
      * @return View
      */
@@ -66,7 +66,7 @@ class AuthorController extends AbstractFOSRestController
 
     /**
      * Updates an Author resource
-     * @Rest\Patch("/authors")
+     * @FOS\Patch("/authors")
      * @param Request $request
      * @return View
      */
@@ -79,7 +79,7 @@ class AuthorController extends AbstractFOSRestController
 
     /**
      * Removes an Author resource
-     * @Rest\Delete("/authors/{authorId}")
+     * @FOS\Delete("/authors/{authorId}")
      * @param int $authorId
      * @return View
      */

@@ -40,4 +40,10 @@ interface BookServiceInterface
      */
     public function update(array $attrs): Book;
 
+     /**
+     * Removes a Book resource
+     * @param int $bookId
+     * @throws EntityNotFoundException
+     */
+    public function delete(int $bookId): void;
 }

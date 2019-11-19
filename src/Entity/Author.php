@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Traits\FormatDate;
 
 /**
  * @ApiResource()
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Author
 {
+    use FormatDate;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -65,26 +65,15 @@ final class BookService implements BookServiceInterface
      */
     public function store(array $attrs): Book
     {
-        $authorId = $attrs['author'];
-
         $book = new Book();
         $book->setTitle($attrs['title']);
-
-        if(!$attrs['lauchDate'] instanceof \DateTimeInterface) {
-            throw new \InvalidArgumentException('A valid lauch date is required.');
-        }
-
-        $book->setLauchDate(\DateTime::createFromFormat('Y-m-d', $attrs['lauchDate']));
-
-        $author = $this->authorService->find($authorId);
-
+        $book->setLaunchDate($book->formatDate($attrs['launchDate']));
+        $author = $this->authorService->find($attrs['author']);
         $book->setAuthor($author);
-
         $this->bookRepository->store($book);
 
         return $book;
     }
-
 
     /**
      * Updates a Book resource
@@ -100,11 +89,7 @@ final class BookService implements BookServiceInterface
             throw new \InvalidArgumentException('Id is required.');
         }
 
-        $book = $this->bookRepository->find($bookId);
-        
-        if (!$book) {
-            throw new EntityNotFoundException('Book with id '.$bookId.' does not exist!');
-        }
+        $book = $this->find($bookId);
 
         $authorId = $attrs['author'];
 
@@ -115,9 +100,25 @@ final class BookService implements BookServiceInterface
         }
         
         $book->setTitle($attrs['title']);
-        $book->setLauchDate(\DateTime::createFromFormat('Y-m-d', $attrs['lauchDate']));
+        $book->setLaunchDate($book->formatDate($attrs['launchDate']));
         $this->bookRepository->store($book);
         
         return $book;
+    }
+
+    /**
+     * Removes a Book resource
+     * @param int $bookId
+     * @throws EntityNotFoundException
+     */
+    public function delete(int $bookId): void
+    {
+        $book = $this->bookRepository->find($bookId);
+
+        if (!$book) {
+            throw new EntityNotFoundException('Book with id '.$bookId.' does not exist!');
+        }
+        
+        $this->bookRepository->delete($book);
     }
 }
