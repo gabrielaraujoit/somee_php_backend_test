@@ -78,4 +78,17 @@ class AuthorController extends AbstractFOSRestController
         
         return View::create($author, Response::HTTP_OK);
     }
+
+    /**
+     * Removes an Author resource
+     * @Rest\Delete("/authors/{authorId}")
+     * @param int $authorId
+     * @return View
+     */
+    public function deleteAuthor(int $authorId): View
+    {
+        $this->authorService->delete($authorId);
+
+        return View::create([], Response::HTTP_NO_CONTENT);
+    }
 }

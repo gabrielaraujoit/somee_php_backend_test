@@ -39,4 +39,11 @@ interface AuthorServiceInterface
      * @throws EntityNotFoundException
      */
     public function update(array $attrs): Author;
+
+     /**
+     * Removes an Author resource
+     * @param int $authorId
+     * @throws EntityNotFoundException
+     */
+    public function delete(int $authorId): void;
 }

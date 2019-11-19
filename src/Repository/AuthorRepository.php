@@ -44,13 +44,23 @@ final class AuthorRepository implements AuthorRepositoryInterface
         return $this->entityManager->find(Author::class, $authorId);
     }
 
-     /**
-      * Stores an author resource
-     * @param Author $author
-     */
+    /**
+     * Stores an author resource
+    * @param Author $author
+    */
     public function store(Author $author): void
     {
         $this->entityManager->persist($author);
+        $this->entityManager->flush();
+    }
+
+    /**
+    * Removes an Author resource
+    * @param Author $author
+    */
+    public function delete(Author $author): void
+    {
+        $this->entityManager->remove($author);
         $this->entityManager->flush();
     }
 }

@@ -94,4 +94,20 @@ final class AuthorService implements AuthorServiceInterface
         
         return $author;
     }
+
+    /**
+     * Removes an Author resource
+     * @param int $authorId
+     * @throws EntityNotFoundException
+     */
+    public function delete(int $authorId): void
+    {
+        $author = $this->authorRepository->find($authorId);
+
+        if (!$author) {
+            throw new EntityNotFoundException('Article with id '.$authorId.' does not exist!');
+        }
+        
+        $this->authorRepository->delete($author);
+    }
 }

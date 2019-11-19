@@ -27,4 +27,10 @@ interface AuthorRepositoryInterface
      * @param Author $author
      */
     public function store(Author $author): void;
+
+    /**
+    * Removes an Author resource
+    * @param Author $author
+    */
+    public function delete(Author $author): void;
 }
