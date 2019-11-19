@@ -9,6 +9,13 @@ use App\Entity\Author;
  */
 interface AuthorServiceInterface
 {
+
+    /**
+     * Retrieves a collection of Author resource
+     * @return array|null
+     */
+    public function findAll(): ?array;
+
     /**
      * Creates an author resource
      * @param array $attrs

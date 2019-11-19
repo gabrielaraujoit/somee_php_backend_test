@@ -29,6 +29,31 @@ class AuthorController extends AbstractFOSRestController
     }
 
     /**
+     * Retrieves a collection of Author resource
+     * @Rest\Get("/authors")
+     * @return View
+     */
+    public function getAuthors(): View
+    {
+        $authors = $this->authorService->findAll();
+        
+        return View::create($authors, Response::HTTP_OK);
+    }
+
+    /**
+     * Retrieves an Author resource
+     * @Rest\Get("/authors/{authorId}")
+     * @param int $authorId
+     * @return View
+     */
+    public function getAuthor(int $authorId): View
+    {
+        $author = $this->authorService->find($authorId);
+
+        return View::create($author, Response::HTTP_OK);
+    }
+
+    /**
      * Creates an author resource
      * @Rest\Post("/authors")
      * @param Request $request

@@ -10,6 +10,12 @@ use App\Entity\Author;
 interface AuthorRepositoryInterface
 {
     /**
+     * Retrieves a collection of Author resource
+     * @return array
+     */
+    public function findAll(): array;
+
+    /**
      * Stores an author resource
      * @param Author $author
      */

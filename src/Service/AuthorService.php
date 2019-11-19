@@ -25,6 +25,15 @@ final class AuthorService implements AuthorServiceInterface
         $this->authorRepository = $authorRepository;
     }
 
+    /**
+     * Retrieves a collection of Author resource
+     * @return array|null
+     */
+    public function findAll(): ?array
+    {
+        return $this->authorRepository->findAll();
+    }
+
      /**
       * Creates an author resource
      * @param array $attrs
