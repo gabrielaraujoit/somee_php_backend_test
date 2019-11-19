@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use DateTimeInterface;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
  */
 class Author

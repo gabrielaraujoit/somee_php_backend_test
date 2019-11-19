@@ -1,7 +1,7 @@
 <?php
 namespace App\Service;
 
-use App\Contracts\AuthorRepositoryInterface;
+use App\Contracts\AuthorServiceInterface;
 use App\Contracts\BookRepositoryInterface;
 use App\Contracts\BookServiceInterface;
 use App\Entity\Book;
@@ -21,16 +21,16 @@ final class BookService implements BookServiceInterface
     /**
      * @var BookRepositoryInterface
      */
-    private $authorRepository;
+    private $authorService;
 
     /**
      * BookService constructor.
      * @param BookRepositoryInterface $bookRepository
      */
-    public function __construct(BookRepositoryInterface $bookRepository, AuthorRepositoryInterface $authorRepository)
+    public function __construct(BookRepositoryInterface $bookRepository, AuthorServiceInterface $authorService)
     {
         $this->bookRepository = $bookRepository;
-        $this->authorRepository = $authorRepository;
+        $this->authorService = $authorService;
     }
 
     /**
@@ -70,24 +70,54 @@ final class BookService implements BookServiceInterface
         $book = new Book();
         $book->setTitle($attrs['title']);
 
-
         if(!$attrs['lauchDate'] instanceof \DateTimeInterface) {
             throw new \InvalidArgumentException('A valid lauch date is required.');
         }
 
         $book->setLauchDate(\DateTime::createFromFormat('Y-m-d', $attrs['lauchDate']));
 
-        $author = $this->authorRepository->find($authorId);
-
-        if(!$author)
-        {
-            throw new EntityNotFoundException('Author with id '.$authorId.' does not exist!');
-        }
+        $author = $this->authorService->find($authorId);
 
         $book->setAuthor($author);
 
         $this->bookRepository->store($book);
 
+        return $book;
+    }
+
+
+    /**
+     * Updates a Book resource
+     * @param array $attrs
+     * @return Book
+     * @throws EntityNotFoundException
+     */
+    public function update(array $attrs): Book
+    {
+        $bookId = $attrs['id'];
+
+        if (empty($bookId)) {
+            throw new \InvalidArgumentException('Id is required.');
+        }
+
+        $book = $this->bookRepository->find($bookId);
+        
+        if (!$book) {
+            throw new EntityNotFoundException('Book with id '.$bookId.' does not exist!');
+        }
+
+        $authorId = $attrs['author'];
+
+        if($authorId != $book->getAuthor()->getId())
+        {
+            $author = $this->authorService->find($authorId);
+            $book->setAuthor($author);
+        }
+        
+        $book->setTitle($attrs['title']);
+        $book->setLauchDate(\DateTime::createFromFormat('Y-m-d', $attrs['lauchDate']));
+        $this->bookRepository->store($book);
+        
         return $book;
     }
 }

@@ -63,4 +63,17 @@ class BookController extends AbstractFOSRestController
         
         return View::create($book, Response::HTTP_CREATED);
     }
+
+    /**
+     * Updates a Book resource
+     * @Rest\Patch("/books")
+     * @param Request $request
+     * @return View
+     */
+    public function patchBook(Request $request): View
+    {
+        $book = $this->bookService->update($request->request->all());
+        
+        return View::create($book, Response::HTTP_OK);
+    }
 }

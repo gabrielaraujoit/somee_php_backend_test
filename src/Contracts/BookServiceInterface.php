@@ -32,4 +32,12 @@ interface BookServiceInterface
      */
     public function store(array $attrs): Book;
 
+     /**
+     * Updates a Book resource
+     * @param array $attrs
+     * @return Book
+     * @throws EntityNotFoundException
+     */
+    public function update(array $attrs): Book;
+
 }

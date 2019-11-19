@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -15,11 +16,13 @@ class Book
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Id is required")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Title is required")
      */
     private $title;
 
@@ -31,6 +34,7 @@ class Book
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="books")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Author is required")
      */
     private $author;
 
